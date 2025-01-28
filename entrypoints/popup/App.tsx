@@ -5,6 +5,7 @@ import "./App.css";
 
 function App() {
 	// const [count, setCount] = useState(0);
+	const [apiKey, setApiKey] = useState("");
 
 	const onTranslate = async () => {
 		const [tab] = await chrome.tabs.query({
@@ -12,7 +13,9 @@ function App() {
 			currentWindow: true,
 		});
 		if (tab?.id !== undefined) {
-			await chrome.tabs.sendMessage(tab.id, { action: "translate" });
+			await chrome.tabs.sendMessage(tab.id, {
+				action: "onTranslate",
+			});
 			console.log("Translate message sent");
 		} else {
 			console.error("No active tab found");
@@ -41,7 +44,9 @@ function App() {
       <p className="read-the-docs">
         Click on the WXT and React logos to learn more
       </p> */}
-
+			<label>API Key</label>
+			{/* <input onChange={(e) => setApiKey(e.target.value)}>{apiKey}</input> */}
+			<input></input>
 			<button onClick={onTranslate}>Translate</button>
 		</>
 	);
